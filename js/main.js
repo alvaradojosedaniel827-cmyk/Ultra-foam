@@ -1,16 +1,215 @@
 /* =============================================================
    Ultra Foam LLC — main.js
-   Phase 1: bootstrap only.
-   Interactive behavior (nav, scroll reveals, form handling,
-   WhatsApp links) will be added in later phases.
+   Phase 2: navbar, hero, CTAs, WhatsApp links, order modal.
+   Vanilla JS only.
    ============================================================= */
 
 (function () {
   'use strict';
 
+  /* -----------------------------------------------------------
+     CONFIG
+     ----------------------------------------------------------- */
+  // CHANGE: WhatsApp number — international format, digits only, no "+".
+  // Example for a US number: "13475551234"
+  var WHATSAPP_NUMBER = '1XXXXXXXXXX';
+
+  // CHANGE: default pre-filled WhatsApp message
+  var WHATSAPP_MESSAGE =
+    "Hi Ultra Foam! I'd like to order cleaning products (5-gallon buckets). Can you share pricing and availability?";
+
+  function buildWhatsAppLink() {
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE);
+  }
+
+  /* -----------------------------------------------------------
+     NAVBAR — scroll style + hamburger menu
+     ----------------------------------------------------------- */
+  function initNavbar() {
+    var navbar = document.getElementById('navbar');
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('navMenu');
+    var backdrop = document.getElementById('navBackdrop');
+
+    if (navbar) {
+      var onScroll = function () {
+        navbar.classList.toggle('is-scrolled', window.scrollY > 12);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    if (!toggle || !menu) return;
+
+    function openMenu() {
+      toggle.classList.add('is-open');
+      menu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+      if (backdrop) {
+        backdrop.hidden = false;
+        requestAnimationFrame(function () { backdrop.classList.add('is-visible'); });
+      }
+      document.body.classList.add('no-scroll');
+    }
+
+    function closeMenu() {
+      toggle.classList.remove('is-open');
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+      if (backdrop) {
+        backdrop.classList.remove('is-visible');
+        setTimeout(function () { backdrop.hidden = true; }, 300);
+      }
+      document.body.classList.remove('no-scroll');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (menu.classList.contains('is-open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+    // Close menu when a nav link is tapped
+    menu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
+    });
+  }
+
+  /* -----------------------------------------------------------
+     SMOOTH SCROLL for in-page anchors
+     ----------------------------------------------------------- */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var id = link.getAttribute('href');
+        if (!id || id === '#') return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  /* -----------------------------------------------------------
+     WHATSAPP links
+     ----------------------------------------------------------- */
+  function initWhatsApp() {
+    var href = buildWhatsAppLink();
+    document.querySelectorAll('[data-whatsapp]').forEach(function (el) {
+      el.setAttribute('href', href);
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener noreferrer');
+    });
+  }
+
+  /* -----------------------------------------------------------
+     ORDER / QUOTE MODAL
+     ----------------------------------------------------------- */
+  function initModal() {
+    var modal = document.getElementById('orderModal');
+    if (!modal) return;
+    var lastFocused = null;
+
+    function openModal() {
+      lastFocused = document.activeElement;
+      modal.hidden = false;
+      document.body.classList.add('no-scroll');
+      var firstInput = modal.querySelector('input, textarea, button');
+      if (firstInput) firstInput.focus();
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      document.body.classList.remove('no-scroll');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    modal.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+      btn.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+
+    initForm(modal);
+  }
+
+  /* -----------------------------------------------------------
+     ORDER FORM — loading state + submit handling
+     ----------------------------------------------------------- */
+  function initForm(modal) {
+    var form = document.getElementById('orderForm');
+    var submitBtn = document.getElementById('formSubmit');
+    if (!form || !submitBtn) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      var data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        bundle: (form.querySelector('input[name="bundle"]:checked') || {}).value || '',
+        notes: form.notes.value.trim()
+      };
+
+      // Loading state
+      submitBtn.classList.add('is-loading');
+      var labelEl = submitBtn.querySelector('.form-submit-label');
+      if (labelEl) labelEl.textContent = 'Sending...';
+
+      // Phase 2: log + redirect. CRM wiring comes in a later phase.
+      console.log('Order lead submitted:', data);
+
+      /* CHANGE: enable in a later phase to send the lead to the API.
+      fetch('/api/submit-lead.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function () { window.location.href = 'gracias.html'; })
+        .catch(function () { window.location.href = 'gracias.html'; });
+      */
+
+      // Temporary: simulate async then redirect to thank-you page.
+      setTimeout(function () {
+        window.location.href = 'gracias.html';
+      }, 800);
+    });
+  }
+
+  /* -----------------------------------------------------------
+     BOOTSTRAP
+     ----------------------------------------------------------- */
   function init() {
-    // Placeholder — feature modules wired up in later phases.
     document.documentElement.classList.add('js-ready');
+    initNavbar();
+    initSmoothScroll();
+    initWhatsApp();
+    initModal();
   }
 
   if (document.readyState === 'loading') {
