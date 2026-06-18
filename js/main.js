@@ -212,6 +212,78 @@
   }
 
   /* -----------------------------------------------------------
+     SCROLL PROGRESS BAR
+     ----------------------------------------------------------- */
+  function initScrollProgress() {
+    var bar = document.getElementById('scrollBar');
+    if (!bar) return;
+    var ticking = false;
+
+    function update() {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+      bar.style.width = pct + '%';
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+
+  /* -----------------------------------------------------------
+     SCROLL REVEAL — fade + slide up via IntersectionObserver.
+     Skipped entirely when the user prefers reduced motion, so
+     all content stays visible with no animation.
+     ----------------------------------------------------------- */
+  function initReveal() {
+    if (!('IntersectionObserver' in window) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    var targets = Array.prototype.slice.call(
+      document.querySelectorAll('.section-head, .product-card, .price-card, .why-item, [data-reveal]')
+    );
+    if (!targets.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(function (el) {
+      el.classList.add('reveal');
+
+      // Subtle stagger among same-type cards inside a grid.
+      var staggerClass = el.classList.contains('product-card') ? 'product-card'
+        : el.classList.contains('price-card') ? 'price-card'
+        : el.classList.contains('why-item') ? 'why-item' : null;
+
+      if (staggerClass && el.parentNode) {
+        var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) {
+          return c.classList && c.classList.contains(staggerClass);
+        });
+        var idx = sibs.indexOf(el);
+        if (idx > 0) el.style.transitionDelay = Math.min(idx, 6) * 60 + 'ms';
+      }
+
+      observer.observe(el);
+    });
+  }
+
+  /* -----------------------------------------------------------
      BOOTSTRAP
      ----------------------------------------------------------- */
   function init() {
@@ -220,6 +292,8 @@
     initSmoothScroll();
     initWhatsApp();
     initModal();
+    initScrollProgress();
+    initReveal();
   }
 
   if (document.readyState === 'loading') {
