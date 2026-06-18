@@ -29,7 +29,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
   <!-- Theme -->
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#FFFFFF">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,7 +76,12 @@
   <header class="navbar" id="navbar">
     <div class="container nav-inner">
       <a class="nav-logo" href="#" aria-label="Ultra Foam LLC home">
-        <img src="assets/images/logo.png" alt="Ultra Foam LLC" width="160" height="44">
+        <!-- LOGO: artwork is light/metallic on a transparent PNG, so it sits in a dark
+             rounded badge to stay visible on the white navbar. Keep the badge until/unless
+             a dark-on-light logo variant is supplied. -->
+        <span class="logo-badge">
+          <img src="assets/images/logo.png" alt="Ultra Foam LLC" width="160" height="40">
+        </span>
       </a>
 
       <nav class="nav-menu" id="navMenu" aria-label="Primary">
@@ -113,29 +118,96 @@
       <div class="hero-bg" aria-hidden="true">
         <span class="hero-glow hero-glow--1"></span>
         <span class="hero-glow hero-glow--2"></span>
-        <img class="hero-watermark" src="assets/images/logo.png" alt="" loading="eager" width="600" height="600" aria-hidden="true">
       </div>
 
       <div class="container hero-inner">
-        <span class="hero-eyebrow">Wholesale · Queens, NY</span>
-        <h1 class="hero-title">
-          Premium Cleaning Products<br>
-          <span class="text-gradient">at Wholesale Prices</span>
-        </h1>
-        <p class="hero-sub">
-          Trusted cleaning brands packed in 5-gallon buckets, supplied at true wholesale
-          pricing with fast local delivery across Queens. Stock your business with quality you can rely on.
-        </p>
-        <div class="hero-cta">
-          <a href="#" class="btn btn-primary btn-lg" data-whatsapp>
-            <svg class="ic-wa" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02ZM12.04 20.15a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.22 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/>
-            </svg>
-            <span>Order on WhatsApp</span>
-          </a>
-          <a href="#products" class="btn btn-secondary btn-lg" data-scroll>View Products</a>
+        <div class="hero-copy">
+          <span class="hero-eyebrow">Wholesale · Queens, NY</span>
+          <h1 class="hero-title">
+            Premium Cleaning Products
+            <span class="text-gradient">at Wholesale Prices</span>
+          </h1>
+          <p class="hero-sub">
+            Trusted cleaning brands packed in 5-gallon buckets, supplied at true wholesale
+            pricing with fast local delivery across Queens. Stock your business with quality you can rely on.
+          </p>
+          <div class="hero-cta">
+            <a href="#" class="btn btn-primary btn-lg" data-whatsapp>
+              <svg class="ic-wa" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02ZM12.04 20.15a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.22 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/>
+              </svg>
+              <span>Order on WhatsApp</span>
+            </a>
+            <a href="#products" class="btn btn-secondary btn-lg" data-scroll>View Products</a>
+          </div>
+          <button class="hero-quote-link" data-open-modal>Or request a quote &rarr;</button>
         </div>
-        <button class="hero-quote-link" data-open-modal>Or request a quote &rarr;</button>
+
+        <!-- HERO PRODUCT IMAGE: replace with real product photo.
+             When the real photo is ready, swap the inline SVG below for:
+             <img src="assets/images/hero-product.webp" alt="5-gallon bucket of premium cleaning detergent"
+                  width="600" height="600" loading="eager"> -->
+        <div class="hero-showcase">
+          <svg viewBox="0 0 400 400" role="img" aria-label="Premium cleaning products — 5-gallon bucket and bottles">
+            <defs>
+              <linearGradient id="bucketBody" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#00E5FF"/>
+                <stop offset="0.55" stop-color="#00B7FF"/>
+                <stop offset="1" stop-color="#0077C8"/>
+              </linearGradient>
+              <linearGradient id="bottleA" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#7FE3FF"/>
+                <stop offset="1" stop-color="#00B7FF"/>
+              </linearGradient>
+              <linearGradient id="bottleB" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#BDEBFF"/>
+                <stop offset="1" stop-color="#5FCBF5"/>
+              </linearGradient>
+              <linearGradient id="labelG" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset="1" stop-color="#EAF6FF"/>
+              </linearGradient>
+            </defs>
+
+            <!-- soft floor shadow -->
+            <ellipse cx="205" cy="356" rx="150" ry="20" fill="#0077C8" opacity="0.12"/>
+
+            <!-- bottle (back left) -->
+            <g transform="translate(70 150)">
+              <rect x="8" y="34" width="60" height="118" rx="14" fill="url(#bottleB)"/>
+              <rect x="26" y="10" width="24" height="30" rx="6" fill="#5FCBF5"/>
+              <rect x="24" y="2" width="28" height="14" rx="5" fill="#0B1E33"/>
+              <rect x="16" y="66" width="44" height="54" rx="8" fill="url(#labelG)"/>
+            </g>
+
+            <!-- 5-gallon bucket (hero) -->
+            <g transform="translate(150 120)">
+              <!-- handle -->
+              <path d="M22 26 C 40 -10, 130 -10, 148 26" fill="none" stroke="#9fb3c4" stroke-width="7" stroke-linecap="round"/>
+              <!-- lid -->
+              <ellipse cx="85" cy="32" rx="82" ry="20" fill="#0B1E33"/>
+              <ellipse cx="85" cy="27" rx="82" ry="20" fill="#13314f"/>
+              <!-- body (tapered) -->
+              <path d="M10 30 L160 30 L146 196 C146 208 124 216 85 216 C46 216 24 208 24 196 Z" fill="url(#bucketBody)"/>
+              <!-- highlight -->
+              <path d="M28 44 C 60 56, 110 56, 142 44 L138 70 C 110 80, 60 80, 32 70 Z" fill="#ffffff" opacity="0.18"/>
+              <!-- label -->
+              <rect x="40" y="92" width="90" height="86" rx="12" fill="url(#labelG)"/>
+              <rect x="54" y="108" width="62" height="9" rx="4.5" fill="#0077C8"/>
+              <rect x="54" y="126" width="48" height="7" rx="3.5" fill="#00B7FF"/>
+              <rect x="54" y="142" width="58" height="7" rx="3.5" fill="#9fb3c4"/>
+              <rect x="54" y="158" width="34" height="7" rx="3.5" fill="#9fb3c4"/>
+            </g>
+
+            <!-- bottle (front right) -->
+            <g transform="translate(280 178)">
+              <rect x="6" y="30" width="54" height="116" rx="13" fill="url(#bottleA)"/>
+              <rect x="22" y="8" width="22" height="28" rx="6" fill="#00B7FF"/>
+              <rect x="20" y="0" width="26" height="13" rx="5" fill="#0B1E33"/>
+              <rect x="13" y="60" width="40" height="50" rx="8" fill="url(#labelG)"/>
+            </g>
+          </svg>
+        </div>
       </div>
     </section>
 
@@ -593,7 +665,7 @@
             </a>
             <button class="btn btn-secondary btn-lg" data-open-modal>Request a quote</button>
           </div>
-          <!-- CHANGE: contact email (aún no lo tengo) -->
+          <!-- CHANGE: contact email (not available yet) -->
           <!-- <p class="contact-email">Prefer email? <a href="mailto:hello@ultrafoam.com">hello@ultrafoam.com</a></p> -->
         </div>
       </div>
@@ -606,9 +678,12 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <img class="footer-logo" src="assets/images/logo.png" alt="Ultra Foam LLC" width="160" height="44">
+        <!-- LOGO: same dark badge as the navbar so the light/metallic logo stays visible. -->
+        <span class="logo-badge footer-logo-badge">
+          <img src="assets/images/logo.png" alt="Ultra Foam LLC" width="160" height="40">
+        </span>
         <p class="footer-tagline">Premium Cleaning Products at Wholesale Prices</p>
-        <!-- CHANGE: social links (aún no los tengo) -->
+        <!-- CHANGE: social links (not available yet) -->
         <!-- <div class="footer-social">
           <a href="#" aria-label="Instagram">…</a>
           <a href="#" aria-label="Facebook">…</a>
