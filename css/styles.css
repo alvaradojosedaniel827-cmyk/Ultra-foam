@@ -1,0 +1,294 @@
+/* =============================================================
+   Ultra Foam LLC — Design System
+   Phase 1: Identity & base styles
+   Concept: "The Apple of cleaning products"
+   Premium black background, electric-blue glow accents,
+   metallic surfaces, generous negative space.
+   ============================================================= */
+
+/* ---------- CSS Custom Properties ---------- */
+:root {
+  /* Brand palette */
+  --electric-blue: #00B7FF;
+  --neon-cyan: #00E5FF;
+  --bg: #000000;
+  --bg-soft: #0a0a0a;
+  --steel: #A8ADB5;
+  --white: #FFFFFF;
+
+  /* Functional colors */
+  --border-subtle: rgba(168, 173, 181, 0.18);
+  --glow-blue: rgba(0, 183, 255, 0.45);
+  --glow-cyan: rgba(0, 229, 255, 0.35);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, var(--electric-blue) 0%, var(--neon-cyan) 100%);
+  --gradient-steel: linear-gradient(145deg, #16181c 0%, #0a0a0a 100%);
+
+  /* Typography */
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+
+  --fs-xs: 0.8125rem;   /* 13px */
+  --fs-sm: 0.9375rem;   /* 15px */
+  --fs-base: 1rem;      /* 16px */
+  --fs-md: 1.125rem;    /* 18px */
+  --fs-lg: 1.5rem;      /* 24px */
+  --fs-xl: 2.25rem;     /* 36px */
+  --fs-2xl: 3rem;       /* 48px */
+  --fs-3xl: 4rem;       /* 64px */
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.3;
+  --lh-normal: 1.6;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-pad: 1.5rem;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.3s var(--ease);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* ---------- Headings (Orbitron) ---------- */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+
+h1 {
+  font-size: clamp(2.25rem, 6vw, var(--fs-3xl));
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, var(--fs-2xl));
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.5vw, var(--fs-lg));
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  color: var(--white);
+}
+
+p {
+  color: var(--steel);
+  line-height: var(--lh-normal);
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--electric-blue);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--neon-cyan);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  padding-block: var(--space-9);
+}
+
+/* Accent text */
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
+  line-height: 1;
+  padding: 0.95rem 2rem;
+  border-radius: var(--radius-pill);
+  text-align: center;
+  white-space: nowrap;
+  transition: transform var(--transition), box-shadow var(--transition),
+    background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Primary — electric blue with glow */
+.btn-primary {
+  background: var(--gradient-brand);
+  color: var(--bg);
+  font-weight: var(--fw-bold);
+  box-shadow: 0 0 0 0 var(--glow-blue), 0 8px 24px -8px var(--glow-blue);
+}
+
+.btn-primary:hover {
+  color: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px 2px var(--glow-blue), 0 12px 32px -8px var(--glow-cyan);
+}
+
+/* Secondary — outline */
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid var(--electric-blue);
+  box-shadow: inset 0 0 0 0 var(--glow-blue);
+}
+
+.btn-secondary:hover {
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 18px -2px var(--glow-blue);
+  transform: translateY(-2px);
+}
+
+/* ---------- Utility ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+::selection {
+  background: var(--electric-blue);
+  color: var(--bg);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

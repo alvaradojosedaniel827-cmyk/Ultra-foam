@@ -1,0 +1,24 @@
+{
+  "name": "ultra-foam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Premium landing page for Ultra Foam LLC — wholesale cleaning products in 5-gallon buckets, Queens NY.",
+  "scripts": {
+    "build:css": "cleancss -o css/styles.min.css css/styles.css",
+    "build:js": "terser js/main.js -o js/main.min.js --compress --mangle",
+    "build": "npm run build:css && npm run build:js",
+    "dev": "vercel dev"
+  },
+  "keywords": [
+    "cleaning-products",
+    "wholesale",
+    "queens",
+    "landing-page"
+  ],
+  "author": "Ultra Foam LLC",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.31.0"
+  }
+}
