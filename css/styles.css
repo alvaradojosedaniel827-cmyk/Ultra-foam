@@ -486,9 +486,50 @@ button:focus-visible {
   align-items: center;
   padding-top: 96px;
   padding-bottom: var(--space-8);
+  /* Fallback / base wash behind the cover photo (light theme) */
   background:
     radial-gradient(120% 80% at 80% 10%, rgba(0, 183, 255, 0.07), transparent 60%),
     linear-gradient(180deg, #FFFFFF 0%, #F4F9FD 100%);
+}
+
+/* HERO COVER IMAGE — to swap the cover, change the url() below.
+   Sits behind everything; edges fade into the white page via a CSS mask. */
+.hero-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('../assets/images/hero-cover.avif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Professional edge fade on all 4 sides: two gradients intersected,
+     so the centre stays crisp and every edge melts into the background. */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 12%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 12%, #000 82%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* White contrast veil so the dark copy stays readable over the photo.
+   Densest on the left (behind the text), clearing toward the right. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0.86) 32%,
+      rgba(255, 255, 255, 0.4) 62%,
+      rgba(255, 255, 255, 0.08) 100%),
+    linear-gradient(0deg, rgba(244, 249, 253, 0.7) 0%, transparent 38%);
 }
 
 .hero-bg {
@@ -524,15 +565,11 @@ button:focus-visible {
 
 .hero-inner {
   position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: center;
-  gap: var(--space-8);
+  z-index: 2; /* above the cover photo + white veil */
 }
 
 .hero-copy {
-  max-width: 600px;
+  max-width: 640px;
 }
 
 .hero-eyebrow {
@@ -579,28 +616,6 @@ button:focus-visible {
 
 .hero-quote-link:hover {
   color: var(--accent-deep);
-}
-
-/* Product showcase (placeholder — swap inner SVG for a real <img>) */
-.hero-showcase {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(100% 100% at 50% 0%, rgba(0, 229, 255, 0.18), transparent 65%),
-    linear-gradient(160deg, #E9F6FF 0%, #F4F9FD 60%, #FFFFFF 100%);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
-}
-
-.hero-showcase img,
-.hero-showcase svg {
-  width: 78%;
-  height: auto;
 }
 
 /* =============================================================
@@ -1597,27 +1612,25 @@ body.no-scroll {
     animation: navItemIn 0.4s var(--ease) 0.32s forwards;
   }
 
-  /* Hero stacks: copy on top, showcase below */
+  /* Hero: copy over the full-width cover banner */
   .hero {
-    min-height: auto;
+    min-height: 78vh;
     padding-top: 120px;
     text-align: left;
-  }
-
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-7);
   }
 
   .hero-copy {
     max-width: none;
   }
 
-  .hero-showcase {
-    order: 2;
-    max-width: 420px;
-    margin-inline: auto;
-    width: 100%;
+  /* Full-width copy needs an even white veil (not left-weighted) so dark
+     text stays legible across the whole column on small screens. */
+  .hero::after {
+    background:
+      linear-gradient(180deg,
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(255, 255, 255, 0.72) 55%,
+        rgba(255, 255, 255, 0.9) 100%);
   }
 
   .hero-cta {

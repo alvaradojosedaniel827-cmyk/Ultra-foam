@@ -36,6 +36,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Preload the hero cover (CSS background — can't use loading="eager"), helps LCP -->
+  <link rel="preload" as="image" href="assets/images/hero-cover.avif" type="image/avif">
+
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.min.css">
 
@@ -115,6 +118,9 @@
          HERO
          ========================================================== -->
     <section class="hero" id="hero">
+      <!-- HERO COVER IMAGE — set in CSS as a background on .hero-cover (see styles.css /* HERO COVER IMAGE */).
+           Edges fade into the page via a CSS mask; a white overlay keeps the copy legible. -->
+      <div class="hero-cover" aria-hidden="true"></div>
       <div class="hero-bg" aria-hidden="true">
         <span class="hero-glow hero-glow--1"></span>
         <span class="hero-glow hero-glow--2"></span>
@@ -141,72 +147,6 @@
             <a href="#products" class="btn btn-secondary btn-lg" data-scroll>View Products</a>
           </div>
           <button class="hero-quote-link" data-open-modal>Or request a quote &rarr;</button>
-        </div>
-
-        <!-- HERO PRODUCT IMAGE: replace with real product photo.
-             When the real photo is ready, swap the inline SVG below for:
-             <img src="assets/images/hero-product.webp" alt="5-gallon bucket of premium cleaning detergent"
-                  width="600" height="600" loading="eager"> -->
-        <div class="hero-showcase">
-          <svg viewBox="0 0 400 400" role="img" aria-label="Premium cleaning products — 5-gallon bucket and bottles">
-            <defs>
-              <linearGradient id="bucketBody" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#00E5FF"/>
-                <stop offset="0.55" stop-color="#00B7FF"/>
-                <stop offset="1" stop-color="#0077C8"/>
-              </linearGradient>
-              <linearGradient id="bottleA" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#7FE3FF"/>
-                <stop offset="1" stop-color="#00B7FF"/>
-              </linearGradient>
-              <linearGradient id="bottleB" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#BDEBFF"/>
-                <stop offset="1" stop-color="#5FCBF5"/>
-              </linearGradient>
-              <linearGradient id="labelG" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#ffffff"/>
-                <stop offset="1" stop-color="#EAF6FF"/>
-              </linearGradient>
-            </defs>
-
-            <!-- soft floor shadow -->
-            <ellipse cx="205" cy="356" rx="150" ry="20" fill="#0077C8" opacity="0.12"/>
-
-            <!-- bottle (back left) -->
-            <g transform="translate(70 150)">
-              <rect x="8" y="34" width="60" height="118" rx="14" fill="url(#bottleB)"/>
-              <rect x="26" y="10" width="24" height="30" rx="6" fill="#5FCBF5"/>
-              <rect x="24" y="2" width="28" height="14" rx="5" fill="#0B1E33"/>
-              <rect x="16" y="66" width="44" height="54" rx="8" fill="url(#labelG)"/>
-            </g>
-
-            <!-- 5-gallon bucket (hero) -->
-            <g transform="translate(150 120)">
-              <!-- handle -->
-              <path d="M22 26 C 40 -10, 130 -10, 148 26" fill="none" stroke="#9fb3c4" stroke-width="7" stroke-linecap="round"/>
-              <!-- lid -->
-              <ellipse cx="85" cy="32" rx="82" ry="20" fill="#0B1E33"/>
-              <ellipse cx="85" cy="27" rx="82" ry="20" fill="#13314f"/>
-              <!-- body (tapered) -->
-              <path d="M10 30 L160 30 L146 196 C146 208 124 216 85 216 C46 216 24 208 24 196 Z" fill="url(#bucketBody)"/>
-              <!-- highlight -->
-              <path d="M28 44 C 60 56, 110 56, 142 44 L138 70 C 110 80, 60 80, 32 70 Z" fill="#ffffff" opacity="0.18"/>
-              <!-- label -->
-              <rect x="40" y="92" width="90" height="86" rx="12" fill="url(#labelG)"/>
-              <rect x="54" y="108" width="62" height="9" rx="4.5" fill="#0077C8"/>
-              <rect x="54" y="126" width="48" height="7" rx="3.5" fill="#00B7FF"/>
-              <rect x="54" y="142" width="58" height="7" rx="3.5" fill="#9fb3c4"/>
-              <rect x="54" y="158" width="34" height="7" rx="3.5" fill="#9fb3c4"/>
-            </g>
-
-            <!-- bottle (front right) -->
-            <g transform="translate(280 178)">
-              <rect x="6" y="30" width="54" height="116" rx="13" fill="url(#bottleA)"/>
-              <rect x="22" y="8" width="22" height="28" rx="6" fill="#00B7FF"/>
-              <rect x="20" y="0" width="26" height="13" rx="5" fill="#0B1E33"/>
-              <rect x="13" y="60" width="40" height="50" rx="8" fill="url(#labelG)"/>
-            </g>
-          </svg>
         </div>
       </div>
     </section>
