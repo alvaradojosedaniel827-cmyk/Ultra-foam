@@ -557,6 +557,12 @@ button:focus-visible {
   padding: var(--space-5);
 }
 
+/* The [hidden] attribute must win over display:flex, otherwise the
+   modal renders on page load. Keeps it closed until JS opens it. */
+.modal[hidden] {
+  display: none;
+}
+
 .modal-overlay {
   position: absolute;
   inset: 0;
