@@ -132,6 +132,438 @@
         <button class="hero-quote-link" data-open-modal>Or request a quote &rarr;</button>
       </div>
     </section>
+
+    <!-- ==========================================================
+         SVG ICON SPRITE (reused across product/why sections)
+         ========================================================== -->
+    <svg class="svg-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+      <symbol id="ic-bucket" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 22h32l-3 28a4 4 0 0 1-4 3.6H23a4 4 0 0 1-4-3.6z"/>
+        <path d="M18 22c0-6 6-9 14-9s14 3 14 9"/>
+        <path d="M32 31c-3.2 4.2-5 6.8-5 9.4a5 5 0 0 0 10 0c0-2.6-1.8-5.2-5-9.4z"/>
+      </symbol>
+      <symbol id="ic-pods" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="27" r="9"/>
+        <circle cx="40" cy="39" r="7"/>
+        <path d="M46 14l1.7 4.6L52 20l-4.3 1.4L46 26l-1.7-4.6L40 20l4.3-1.4z"/>
+      </symbol>
+      <symbol id="ic-star" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 10l6.6 13.4 14.8 2.2-10.7 10.4 2.5 14.7L32 44.9l-13.2 6.9 2.5-14.7L10.6 25.6l14.8-2.2z"/>
+      </symbol>
+      <symbol id="ic-truck" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 18h30v22H6z"/>
+        <path d="M36 25h9l9 9v6H36z"/>
+        <circle cx="18" cy="44" r="4.5"/>
+        <circle cx="44" cy="44" r="4.5"/>
+      </symbol>
+      <symbol id="ic-people" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="22" r="8"/>
+        <circle cx="43" cy="25" r="6"/>
+        <path d="M11 50c0-8 5.5-13 13-13s13 5 13 13"/>
+        <path d="M39 50c0-6 3-10 8.5-10s8.5 3.5 8.5 9"/>
+      </symbol>
+    </svg>
+
+    <!-- ==========================================================
+         PRODUCTS
+         ========================================================== -->
+    <section class="section products" id="products">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Our Catalog</span>
+          <h2 class="section-title">Premium Products,<br><span class="text-gradient">Wholesale Buckets</span></h2>
+          <p class="section-sub">Trusted national brands packed in heavy-duty 5-gallon buckets. Pick what your business needs and order in seconds.</p>
+        </div>
+
+        <!-- Category: Laundry Detergents -->
+        <div class="product-category">
+          <div class="category-head">
+            <h3 class="category-title">Laundry Detergents</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+          <div class="product-grid">
+
+            <!-- Product card template — duplicate per product. -->
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <!-- <img src="assets/images/products/tide-ultra-oxi.webp" alt="Tide Ultra Oxi — 5-gallon bucket" width="400" height="400"> -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Tide Ultra Oxi</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Tide Ultra Oxi">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Tide Ultra Downy</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Tide Ultra Downy">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Tide Free &amp; Gentle</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Tide Free & Gentle">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Gain Ultra Oxi</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Gain Ultra Oxi">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Persil</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Persil">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Dreft Baby Detergent</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Dreft Baby Detergent">Order</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Category: Fabric Softeners -->
+        <div class="product-category">
+          <div class="category-head">
+            <h3 class="category-title">Fabric Softeners</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+          <div class="product-grid">
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Downy April Fresh</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Downy April Fresh">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Gain Fabric Softener</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Gain Fabric Softener">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Suavitel Fabric Softener</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Suavitel Fabric Softener">Order</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Category: Household Cleaners -->
+        <div class="product-category">
+          <div class="category-head">
+            <h3 class="category-title">Household Cleaners</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+          <div class="product-grid">
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Fabuloso</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Fabuloso">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Pine-Sol</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Pine-Sol">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Clorox Bleach</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Clorox Bleach">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Dawn Professional Dish Soap</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Dawn Professional Dish Soap">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Degreaser</h4>
+                <span class="product-tag">5-Gallon Bucket</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Degreaser">Order</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Category: Laundry Add-ons -->
+        <div class="product-category">
+          <div class="category-head">
+            <h3 class="category-title">Laundry Add-ons</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+          <div class="product-grid">
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-pods"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Tide Pods with Oxi</h4>
+                <span class="product-tag">150 Count</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Tide Pods with Oxi (150 Count)">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-pods"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Gain Pods</h4>
+                <span class="product-tag">150 Count</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Gain Pods (150 Count)">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-pods"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">April Fresh Scent Beads</h4>
+                <span class="product-tag">5 lb Bag</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="April Fresh Scent Beads (5 lb)">Order</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media">
+                <!-- PRODUCT IMAGE: replace placeholder with real photo -->
+                <span class="product-placeholder" aria-hidden="true"><svg class="product-icon" viewBox="0 0 64 64"><use href="#ic-pods"/></svg></span>
+              </div>
+              <div class="product-body">
+                <h4 class="product-name">Unstoppable Scent Beads</h4>
+                <span class="product-tag">5 lb Bag</span>
+                <a class="btn btn-secondary btn-sm product-order" data-whatsapp data-product="Unstoppable Scent Beads (5 lb)">Order</a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         BUNDLE DEALS
+         ========================================================== -->
+    <section class="section bundles" id="bundles">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Bundle Deals</span>
+          <h2 class="section-title">Buy More,<br><span class="text-gradient">Save More</span></h2>
+          <p class="section-sub">Mix and match any products across your buckets. The more you stock, the better the price.</p>
+        </div>
+
+        <div class="price-grid">
+
+          <article class="price-card">
+            <header class="price-head">
+              <span class="price-qty">1 Bucket</span>
+            </header>
+            <div class="price-amount"><span class="price-currency">$</span>50</div>
+            <ul class="price-features">
+              <li>Pick your products</li>
+              <li>Premium brands</li>
+              <li>Wholesale price</li>
+              <li>Local delivery / pickup</li>
+            </ul>
+            <button class="btn btn-secondary btn-block price-cta" data-open-modal data-bundle="1 Bucket">Order this bundle</button>
+          </article>
+
+          <article class="price-card">
+            <header class="price-head">
+              <span class="price-qty">2 Buckets</span>
+            </header>
+            <div class="price-amount"><span class="price-currency">$</span>100</div>
+            <ul class="price-features">
+              <li>Pick your products</li>
+              <li>Premium brands</li>
+              <li>Wholesale price</li>
+              <li>Local delivery / pickup</li>
+            </ul>
+            <button class="btn btn-secondary btn-block price-cta" data-open-modal data-bundle="2 Buckets">Order this bundle</button>
+          </article>
+
+          <article class="price-card is-featured">
+            <span class="price-badge">POPULAR</span>
+            <header class="price-head">
+              <span class="price-qty">3 Buckets</span>
+            </header>
+            <div class="price-amount"><span class="price-currency">$</span>130</div>
+            <ul class="price-features">
+              <li>Pick your products</li>
+              <li>Premium brands</li>
+              <li>Wholesale price</li>
+              <li>Local delivery / pickup</li>
+            </ul>
+            <button class="btn btn-primary btn-block price-cta" data-open-modal data-bundle="3 Buckets">Order this bundle</button>
+          </article>
+
+          <article class="price-card is-featured is-best">
+            <span class="price-badge">BEST VALUE</span>
+            <header class="price-head">
+              <span class="price-qty">4 Buckets</span>
+            </header>
+            <div class="price-amount"><span class="price-currency">$</span>180</div>
+            <ul class="price-features">
+              <li>Pick your products</li>
+              <li>Premium brands</li>
+              <li>Wholesale price</li>
+              <li>Local delivery / pickup</li>
+            </ul>
+            <button class="btn btn-primary btn-block price-cta" data-open-modal data-bundle="4 Buckets">Order this bundle</button>
+          </article>
+
+        </div>
+
+        <p class="price-disclaimer">Card payments accepted (+ processing fee).</p>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         WHY ULTRA FOAM
+         ========================================================== -->
+    <section class="section why" id="why">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Why Ultra Foam</span>
+          <h2 class="section-title">Built for <span class="text-gradient">Your Business</span></h2>
+          <p class="section-sub">A few honest answers about what makes us different.</p>
+        </div>
+
+        <div class="why-grid">
+
+          <article class="why-item">
+            <span class="why-icon"><svg viewBox="0 0 64 64"><use href="#ic-star"/></svg></span>
+            <div class="why-text">
+              <h3 class="why-q">Are these genuine premium brands?</h3>
+              <p class="why-a">Absolutely. The same trusted national brands you already know &mdash; supplied at true wholesale prices so your business keeps more margin.</p>
+            </div>
+          </article>
+
+          <article class="why-item">
+            <span class="why-icon"><svg viewBox="0 0 64 64"><use href="#ic-bucket"/></svg></span>
+            <div class="why-text">
+              <h3 class="why-q">How do the products come packaged?</h3>
+              <p class="why-a">Everything ships in heavy-duty 5-gallon bucket presentations &mdash; more product, less packaging waste, and fewer reorders.</p>
+            </div>
+          </article>
+
+          <article class="why-item">
+            <span class="why-icon"><svg viewBox="0 0 64 64"><use href="#ic-truck"/></svg></span>
+            <div class="why-text">
+              <h3 class="why-q">Can you get it to me?</h3>
+              <p class="why-a">Yes. We offer local delivery and pickup across Queens, NY &mdash; fast and on your schedule.</p>
+            </div>
+          </article>
+
+          <article class="why-item">
+            <span class="why-icon"><svg viewBox="0 0 64 64"><use href="#ic-people"/></svg></span>
+            <div class="why-text">
+              <h3 class="why-q">Who am I buying from?</h3>
+              <p class="why-a">A family business. You get personalized attention and a direct line whenever it's time to reorder.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ============================================================

@@ -854,6 +854,345 @@ body.no-scroll {
 }
 
 /* =============================================================
+   PHASE 3 — SECTION HEADERS (shared)
+   ============================================================= */
+.svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.section-head {
+  max-width: 720px;
+  margin: 0 auto var(--space-8);
+  text-align: center;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-4);
+}
+
+.section-title {
+  margin-bottom: var(--space-4);
+}
+
+.section-sub {
+  font-size: var(--fs-md);
+  color: var(--steel);
+}
+
+/* =============================================================
+   PHASE 3 — PRODUCTS
+   ============================================================= */
+.product-category {
+  margin-top: var(--space-8);
+}
+
+.product-category:first-of-type {
+  margin-top: 0;
+}
+
+.category-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.category-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, var(--fs-lg));
+  white-space: nowrap;
+}
+
+.category-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-subtle), transparent);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--gradient-steel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 183, 255, 0.5);
+  box-shadow: 0 0 28px -6px var(--glow-blue), 0 18px 36px -18px rgba(0, 0, 0, 0.9);
+}
+
+/* Placeholder media — swap .product-placeholder for an <img> later */
+.product-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-soft);
+}
+
+.product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(0, 183, 255, 0.16), transparent 60%),
+    linear-gradient(145deg, #1c1f24 0%, #0c0d10 55%, #15171b 100%);
+}
+
+.product-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--steel);
+  filter: drop-shadow(0 0 12px rgba(0, 183, 255, 0.35));
+  transition: color var(--transition);
+}
+
+.product-card:hover .product-icon {
+  color: var(--neon-cyan);
+}
+
+.product-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  flex: 1;
+}
+
+.product-name {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
+  color: var(--white);
+}
+
+.product-tag {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  color: var(--neon-cyan);
+  background: rgba(0, 183, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.7rem;
+}
+
+.btn-sm {
+  padding: 0.55rem 1.4rem;
+  font-size: var(--fs-sm);
+}
+
+.product-order {
+  margin-top: auto;
+}
+
+/* =============================================================
+   PHASE 3 — BUNDLE DEALS
+   ============================================================= */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-6);
+  background: var(--gradient-steel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.price-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 183, 255, 0.5);
+  box-shadow: 0 0 28px -6px var(--glow-blue), 0 18px 36px -18px rgba(0, 0, 0, 0.9);
+}
+
+.price-card.is-featured {
+  border-color: rgba(0, 183, 255, 0.45);
+  box-shadow: 0 0 32px -10px var(--glow-blue);
+}
+
+.price-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gradient-brand);
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 6px 18px -6px var(--glow-blue);
+  white-space: nowrap;
+}
+
+.price-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.price-qty {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
+  color: var(--white);
+}
+
+.price-amount {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2xl);
+  line-height: 1;
+  color: var(--white);
+}
+
+.price-currency {
+  font-size: var(--fs-lg);
+  color: var(--steel);
+  margin-right: 2px;
+  vertical-align: top;
+}
+
+.price-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.price-features li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: var(--fs-sm);
+  color: var(--steel);
+}
+
+.price-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  box-shadow: 0 0 8px var(--glow-blue);
+}
+
+.price-cta {
+  margin-top: auto;
+}
+
+.price-disclaimer {
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--steel);
+  margin-top: var(--space-5);
+}
+
+/* =============================================================
+   PHASE 3 — WHY ULTRA FOAM
+   ============================================================= */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+.why-item {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--gradient-steel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.why-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 183, 255, 0.5);
+  box-shadow: 0 0 28px -6px var(--glow-blue), 0 18px 36px -18px rgba(0, 0, 0, 0.9);
+}
+
+.why-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: rgba(0, 183, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: var(--neon-cyan);
+}
+
+.why-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.why-q {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-md);
+  color: var(--white);
+  margin-bottom: var(--space-2);
+}
+
+.why-a {
+  font-size: var(--fs-sm);
+  color: var(--steel);
+}
+
+/* =============================================================
    RESPONSIVE — Mobile
    ============================================================= */
 @media (max-width: 860px) {
@@ -985,5 +1324,17 @@ body.no-scroll {
   .bundle-card-inner {
     min-height: 64px;
     padding: var(--space-3) var(--space-1);
+  }
+
+  .section-head {
+    margin-bottom: var(--space-7);
+  }
+
+  .price-card {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .why-item {
+    padding: var(--space-5);
   }
 }

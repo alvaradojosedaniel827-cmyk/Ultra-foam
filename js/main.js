@@ -18,8 +18,9 @@
   var WHATSAPP_MESSAGE =
     "Hi Ultra Foam! I'd like to order cleaning products (5-gallon buckets). Can you share pricing and availability?";
 
-  function buildWhatsAppLink() {
-    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE);
+  function buildWhatsAppLink(message) {
+    var text = message || WHATSAPP_MESSAGE;
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
   }
 
   /* -----------------------------------------------------------
@@ -105,9 +106,13 @@
      WHATSAPP links
      ----------------------------------------------------------- */
   function initWhatsApp() {
-    var href = buildWhatsAppLink();
     document.querySelectorAll('[data-whatsapp]').forEach(function (el) {
-      el.setAttribute('href', href);
+      // A product card passes data-product to pre-fill a product-specific message.
+      var product = el.getAttribute('data-product');
+      var message = product
+        ? "Hi Ultra Foam! I'd like to order: " + product + ". Is it available and what's the price?"
+        : WHATSAPP_MESSAGE;
+      el.setAttribute('href', buildWhatsAppLink(message));
       el.setAttribute('target', '_blank');
       el.setAttribute('rel', 'noopener noreferrer');
     });
@@ -121,8 +126,13 @@
     if (!modal) return;
     var lastFocused = null;
 
-    function openModal() {
+    function openModal(presetBundle) {
       lastFocused = document.activeElement;
+      // A bundle card passes its label (e.g. "3 Buckets") to pre-select the radio.
+      if (presetBundle) {
+        var radio = modal.querySelector('input[name="bundle"][value="' + presetBundle + '"]');
+        if (radio) radio.checked = true;
+      }
       modal.hidden = false;
       document.body.classList.add('no-scroll');
       var firstInput = modal.querySelector('input, textarea, button');
@@ -138,7 +148,7 @@
     document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        openModal();
+        openModal(btn.getAttribute('data-bundle'));
       });
     });
 
