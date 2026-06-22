@@ -499,7 +499,7 @@ button:focus-visible {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: url('../assets/images/hero-cover.avif');
+  background-image: url('../assets/images/hero-cover.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
