@@ -212,6 +212,64 @@
   }
 
   /* -----------------------------------------------------------
+     CATALOG FILTER — sidebar / chip row
+     ----------------------------------------------------------- */
+  function initCatalogFilter() {
+    var filterBtns = document.querySelectorAll('.cat-btn[data-filter]');
+    var cards = document.querySelectorAll('.product-card[data-category]');
+    var sections = document.querySelectorAll('.catalog-products .product-category');
+
+    if (!filterBtns.length) return;
+
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function setFilter(filter) {
+      // Update button states
+      filterBtns.forEach(function (btn) {
+        var active = btn.getAttribute('data-filter') === filter;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      // Show / hide cards with optional fade
+      cards.forEach(function (card) {
+        var match = filter === 'all' || card.getAttribute('data-category') === filter;
+        if (match) {
+          card.style.display = '';
+          if (!reducedMotion) {
+            card.classList.remove('is-filtering');
+            // Force reflow so animation re-triggers
+            void card.offsetWidth;
+            card.classList.add('is-filtering');
+          }
+        } else {
+          card.style.display = 'none';
+          card.classList.remove('is-filtering');
+        }
+      });
+
+      // Hide category sections whose cards are all hidden (keeps headings clean)
+      sections.forEach(function (section) {
+        var sectionCards = section.querySelectorAll('.product-card[data-category]');
+        var hasVisible = false;
+        sectionCards.forEach(function (c) {
+          if (filter === 'all' || c.getAttribute('data-category') === filter) hasVisible = true;
+        });
+        section.style.display = hasVisible ? '' : 'none';
+      });
+    }
+
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setFilter(btn.getAttribute('data-filter'));
+      });
+    });
+
+    // Default: all products visible
+    setFilter('all');
+  }
+
+  /* -----------------------------------------------------------
      SCROLL PROGRESS BAR
      ----------------------------------------------------------- */
   function initScrollProgress() {
@@ -292,6 +350,7 @@
     initSmoothScroll();
     initWhatsApp();
     initModal();
+    initCatalogFilter();
     initScrollProgress();
     initReveal();
   }

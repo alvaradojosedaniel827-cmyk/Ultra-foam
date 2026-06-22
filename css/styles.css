@@ -1100,6 +1100,170 @@ body.no-scroll {
 }
 
 /* =============================================================
+   CATALOG LAYOUT — sidebar filter + products area
+   ============================================================= */
+.catalog-layout {
+  display: flex;
+  gap: var(--space-7);
+  align-items: flex-start;
+  margin-top: var(--space-8);
+}
+
+/* -- Sidebar (desktop) -- */
+.catalog-sidebar {
+  flex: 0 0 240px;
+  position: sticky;
+  top: 90px;
+}
+
+.cat-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0.7rem 1rem;
+  min-height: 44px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.cat-btn:hover {
+  background: var(--bg-soft);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.cat-btn:focus-visible {
+  outline: 2px solid var(--electric-blue);
+  outline-offset: 2px;
+}
+
+.cat-btn.is-active {
+  background: rgba(0, 183, 255, 0.1);
+  border-color: var(--electric-blue);
+  color: var(--accent-deep);
+  font-weight: var(--fw-semibold);
+}
+
+.cat-count {
+  flex-shrink: 0;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.1rem 0.55rem;
+  min-width: 26px;
+  text-align: center;
+  color: var(--text-muted);
+  transition: background var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+
+.cat-btn.is-active .cat-count {
+  background: rgba(0, 183, 255, 0.15);
+  color: var(--accent-deep);
+  border-color: rgba(0, 183, 255, 0.4);
+}
+
+/* -- Products area -- */
+.catalog-products {
+  flex: 1;
+  min-width: 0;
+}
+
+/* -- Fade-in animation when cards appear -- */
+@keyframes cat-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.product-card.is-filtering {
+  animation: cat-fade-in 0.25s var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card.is-filtering {
+    animation: none;
+  }
+}
+
+/* -- Mobile: horizontal chip row -- */
+@media (max-width: 768px) {
+  .catalog-layout {
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .catalog-sidebar {
+    flex: none;
+    position: static;
+    width: 100%;
+  }
+
+  .cat-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: var(--space-2);
+    padding-bottom: var(--space-2);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .cat-nav::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .cat-nav::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .cat-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    width: auto;
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 1rem;
+    border: 1.5px solid var(--border);
+    background: var(--bg-card);
+    justify-content: center;
+  }
+
+  .cat-btn.is-active {
+    background: var(--electric-blue);
+    border-color: var(--electric-blue);
+    color: #fff;
+    font-weight: var(--fw-semibold);
+  }
+
+  .cat-btn.is-active .cat-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* =============================================================
    BUNDLE DEALS
    ============================================================= */
 .price-grid {
