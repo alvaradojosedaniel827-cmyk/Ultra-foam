@@ -288,62 +288,108 @@
       font-size: .875rem;
     }
 
-    /* ---- Product list ---- */
+    /* ---- Product list — card grid ---- */
     #product-list {
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
     }
 
     .product-row {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--r);
-      padding: .875rem;
-      display: grid;
-      grid-template-columns: 64px 1fr auto;
-      gap: .875rem;
-      align-items: center;
       box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
-    .p-thumb {
-      width: 64px;
-      height: 64px;
-      border-radius: var(--rs);
+    /* Thumbnail — imagen contenida, nunca desborda */
+    .product-thumb {
+      width: 100%;
+      height: 140px;
       overflow: hidden;
       background: var(--bg-soft);
-      border: 1px solid var(--border);
-      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
-    .p-thumb img {
+    .product-thumb img {
+      display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      max-width: 100%;
+      object-fit: contain;
     }
 
-    .no-img {
-      font-size: .65rem;
-      color: var(--muted);
-      text-align: center;
+    /* Info section */
+    .product-info {
+      padding: .75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .375rem;
+      min-width: 0;
     }
 
-    .p-name {
+    .product-name {
       font-weight: 600;
       font-size: .9375rem;
-      margin-bottom: .25rem;
+      color: var(--text);
+      line-height: 1.3;
+      word-break: break-word;
     }
 
-    .p-meta {
+    .product-meta {
       display: flex;
       flex-wrap: wrap;
       gap: .375rem;
       align-items: center;
-      margin-bottom: .375rem;
+    }
+
+    .product-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .375rem;
+    }
+
+    /* Action buttons row */
+    .product-actions {
+      display: flex;
+      gap: .5rem;
+      padding: .625rem .75rem;
+      border-top: 1px solid var(--border);
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
+    /* Botones usados en el JS */
+    .btn-blue {
+      background: var(--grad);
+      color: #fff;
+      font-size: .8rem;
+      padding: .375rem .75rem;
+      border-radius: 6px;
+    }
+
+    .btn-danger {
+      background: #FFF5F5;
+      color: var(--red);
+      border: 1.5px solid #FEB2B2;
+      font-size: .8rem;
+      padding: .375rem .75rem;
+      border-radius: 6px;
+    }
+
+    /* Badges & meta tags */
+    .no-img {
+      font-size: .65rem;
+      color: var(--muted);
+      text-align: center;
     }
 
     .cat-badge {
@@ -375,12 +421,6 @@
       color: var(--blue-deep);
     }
 
-    .p-badges {
-      display: flex;
-      gap: .375rem;
-      flex-wrap: wrap;
-    }
-
     .badge {
       font-size: .68rem;
       font-weight: 600;
@@ -392,18 +432,12 @@
     .badge-off      { background:#FFF5F5; color:var(--red);    border:1px solid #FEB2B2; }
     .badge-featured { background:#FFFAF0; color:var(--orange); border:1px solid #FBD38D; }
 
-    .p-actions {
-      display: flex;
-      flex-direction: column;
-      gap: .375rem;
-      align-items: flex-end;
-    }
-
     .state-msg {
       text-align: center;
       color: var(--muted);
       padding: 2.5rem 1rem;
       font-size: .9rem;
+      grid-column: 1 / -1;
     }
 
     .state-msg.is-error { color: var(--red); }
@@ -508,19 +542,10 @@
 
     .modal-ft .btn { width: auto; min-width: 100px; }
 
-    /* ---- Responsive: 375 px ---- */
+    /* ---- Responsive: móvil ---- */
     @media (max-width: 520px) {
-      .product-row {
-        grid-template-columns: 56px 1fr;
-        grid-template-rows: auto auto;
-      }
-
-      .p-actions {
-        grid-column: 1 / -1;
-        flex-direction: row;
-        justify-content: flex-end;
-        border-top: 1px solid var(--border);
-        padding-top: .625rem;
+      #product-list {
+        grid-template-columns: 1fr;
       }
 
       .two-col { grid-template-columns: 1fr; }
