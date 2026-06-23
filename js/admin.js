@@ -212,14 +212,15 @@
         image_url = urlData.publicUrl;
       }
 
+      const priceRaw = productForm.querySelector('[name="price"]').value.trim();
       const payload = {
         name,
-        price:       parseFloat(productForm.querySelector('[name="price"]').value)     || 0,
+        price:       priceRaw !== '' ? parseFloat(priceRaw) : null,
         category:    productForm.querySelector('[name="category"]').value,
-        size_label:  productForm.querySelector('[name="size_label"]').value.trim()     || null,
-        available:   productForm.querySelector('[name="available"]').checked,
-        featured:    productForm.querySelector('[name="featured"]').checked,
-        sort_order:  parseInt(productForm.querySelector('[name="sort_order"]').value, 10) || null,
+        size_label:  productForm.querySelector('[name="size_label"]').value.trim() || null,
+        available:   !!productForm.querySelector('[name="available"]').checked,
+        featured:    !!productForm.querySelector('[name="featured"]').checked,
+        sort_order:  parseInt(productForm.querySelector('[name="sort_order"]').value, 10) || 0,
         image_url:   image_url || null,
       };
 
