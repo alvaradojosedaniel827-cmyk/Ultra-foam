@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Ultra Foam LLC</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts — same as main site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Supabase SDK (must load before supabase-config.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    /* === Ultra Foam Admin — isolated styles (do not share with main site) === */
+    :root {
+      --blue:        #00B7FF;
+      --blue-deep:   #0077C8;
+      --bg:          #FFFFFF;
+      --bg-soft:     #F4F9FD;
+      --text:        #0B1E33;
+      --muted:       #5A6B7B;
+      --border:      #E3ECF3;
+      --shadow:      0 6px 20px rgba(11,30,51,.07);
+      --grad:        linear-gradient(135deg,#00B7FF 0%,#0077C8 100%);
+      --font-d:      'Orbitron', sans-serif;
+      --font-b:      'Poppins', sans-serif;
+      --r:           12px;
+      --rs:          8px;
+      --red:         #E53E3E;
+      --green:       #38A169;
+      --orange:      #DD6B20;
+    }
+
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+
+    body {
+      font-family: var(--font-b);
+      background: var(--bg-soft);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    [hidden] { display: none !important; }
+
+    /* ---- Login ---- */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    .login-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .brand-name {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      letter-spacing: .04em;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: .85rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ---- Form fields ---- */
+    .field { margin-bottom: 1.25rem; }
+
+    label {
+      display: block;
+      font-size: .8125rem;
+      font-weight: 600;
+      margin-bottom: .375rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: .625rem .875rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--rs);
+      font-family: var(--font-b);
+      font-size: .9375rem;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-appearance: none;
+      appearance: none;
+      transition: border-color .15s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .toggle-row label {
+      margin: 0;
+      font-size: .9375rem;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 40px;
+      height: 22px;
+      cursor: pointer;
+      accent-color: var(--blue-deep);
+      flex-shrink: 0;
+    }
+
+    /* ---- Buttons ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .6rem 1.25rem;
+      border-radius: var(--rs);
+      font-family: var(--font-b);
+      font-size: .9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: opacity .15s, transform .1s;
+      white-space: nowrap;
+    }
+
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .btn:not(:disabled):hover  { opacity: .85; }
+    .btn:not(:disabled):active { transform: scale(.98); }
+
+    .btn-primary {
+      background: var(--grad);
+      color: #fff;
+      width: 100%;
+      padding: .75rem;
+    }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-icon {
+      background: var(--grad);
+      color: #fff;
+      font-size: .8rem;
+      padding: .375rem .75rem;
+      border-radius: 6px;
+    }
+
+    .btn-del {
+      background: #FFF5F5;
+      color: var(--red);
+      border: 1.5px solid #FEB2B2;
+      font-size: .8rem;
+      padding: .375rem .75rem;
+      border-radius: 6px;
+    }
+
+    /* ---- Alert messages ---- */
+    .alert {
+      padding: .6rem .875rem;
+      border-radius: var(--rs);
+      font-size: .875rem;
+      margin-bottom: 1rem;
+    }
+
+    .alert-error   { background:#FFF5F5; color:var(--red);   border:1px solid #FEB2B2; }
+    .alert-success { background:#F0FFF4; color:var(--green); border:1px solid #9AE6B4; }
+
+    /* ---- Admin header ---- */
+    #admin-panel { min-height: 100vh; }
+
+    .adm-header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: .875rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .adm-logo {
+      font-family: var(--font-d);
+      font-size: .875rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+      letter-spacing: .03em;
+    }
+
+    .adm-logo small {
+      font-family: var(--font-b);
+      font-weight: 400;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-left: .375rem;
+    }
+
+    #signout-btn {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      padding: .375rem .875rem;
+      border-radius: var(--rs);
+      font-family: var(--font-b);
+      font-size: .8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+
+    #signout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* ---- Main content ---- */
+    .adm-main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .sec-hd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .sec-hd-left {
+      display: flex;
+      align-items: center;
+      gap: .625rem;
+    }
+
+    .sec-title {
+      font-family: var(--font-d);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .sec-count {
+      background: var(--bg);
+      color: var(--muted);
+      font-size: .75rem;
+      padding: .15rem .5rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+    }
+
+    #add-btn {
+      width: auto;
+      padding: .5rem 1.125rem;
+      font-size: .875rem;
+    }
+
+    /* ---- Product list ---- */
+    #product-list {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .product-row {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: .875rem;
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: .875rem;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .p-thumb {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--rs);
+      overflow: hidden;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .p-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .no-img {
+      font-size: .65rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .p-name {
+      font-weight: 600;
+      font-size: .9375rem;
+      margin-bottom: .25rem;
+    }
+
+    .p-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .375rem;
+      align-items: center;
+      margin-bottom: .375rem;
+    }
+
+    .cat-badge {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: .15rem .5rem;
+      border-radius: 99px;
+    }
+
+    .cat-detergents { background:#EBF8FF; color:#2B6CB0; }
+    .cat-softeners  { background:#FFF5F7; color:#C53030; }
+    .cat-cleaners   { background:#F0FFF4; color:#276749; }
+    .cat-addons     { background:#FFFAF0; color:#C05621; }
+
+    .meta-tag {
+      font-size: .75rem;
+      color: var(--muted);
+      background: var(--bg-soft);
+      padding: .15rem .5rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+    }
+
+    .meta-price {
+      font-size: .875rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    .p-badges {
+      display: flex;
+      gap: .375rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: .68rem;
+      font-weight: 600;
+      padding: .15rem .5rem;
+      border-radius: 99px;
+    }
+
+    .badge-on       { background:#F0FFF4; color:var(--green);  border:1px solid #9AE6B4; }
+    .badge-off      { background:#FFF5F5; color:var(--red);    border:1px solid #FEB2B2; }
+    .badge-featured { background:#FFFAF0; color:var(--orange); border:1px solid #FBD38D; }
+
+    .p-actions {
+      display: flex;
+      flex-direction: column;
+      gap: .375rem;
+      align-items: flex-end;
+    }
+
+    .state-msg {
+      text-align: center;
+      color: var(--muted);
+      padding: 2.5rem 1rem;
+      font-size: .9rem;
+    }
+
+    .state-msg.is-error { color: var(--red); }
+
+    /* ---- Modal ---- */
+    #form-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(11,30,51,.5);
+      z-index: 100;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .modal-box {
+      background: var(--bg);
+      border-radius: var(--r);
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+      width: 100%;
+      max-width: 520px;
+      padding: 1.75rem 1.5rem;
+      margin: auto;
+    }
+
+    .modal-hd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-d);
+      font-size: .95rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: .125rem .375rem;
+      border-radius: 4px;
+    }
+
+    .modal-close:hover { color: var(--text); background: var(--bg-soft); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1rem;
+    }
+
+    /* Image upload area */
+    .img-upload { margin-bottom: 1.25rem; }
+    .img-upload label { margin-bottom: .4rem; }
+
+    .file-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .625rem 1rem;
+      background: var(--bg-soft);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--rs);
+      color: var(--muted);
+      font-size: .875rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: border-color .15s, color .15s;
+    }
+
+    .file-trigger:hover { border-color: var(--blue); color: var(--blue-deep); }
+
+    #image-input { display: none; }
+
+    #image-preview {
+      margin-top: .75rem;
+      width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      border-radius: var(--rs);
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+
+    .modal-ft {
+      display: flex;
+      gap: .75rem;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-ft .btn { width: auto; min-width: 100px; }
+
+    /* ---- Responsive: 375 px ---- */
+    @media (max-width: 520px) {
+      .product-row {
+        grid-template-columns: 56px 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .p-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: flex-end;
+        border-top: 1px solid var(--border);
+        padding-top: .625rem;
+      }
+
+      .two-col { grid-template-columns: 1fr; }
+
+      .modal-box { padding: 1.25rem 1rem; }
+
+      .adm-header { padding: .75rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="brand-name">ULTRA FOAM LLC</div>
+      <p class="brand-sub">Staff Administration Panel</p>
+
+      <div id="login-error" class="alert alert-error" hidden></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="l-email">Email</label>
+          <input type="email" id="l-email" name="email" required autocomplete="email" placeholder="admin@example.com">
+        </div>
+        <div class="field">
+          <label for="l-password">Password</label>
+          <input type="password" id="l-password" name="password" required autocomplete="current-password" placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn btn-primary" id="login-btn">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== ADMIN PANEL ===================== -->
+  <div id="admin-panel" hidden>
+
+    <header class="adm-header">
+      <div class="adm-logo">ULTRA FOAM<small>Admin</small></div>
+      <button id="signout-btn">Sign Out</button>
+    </header>
+
+    <main class="adm-main">
+
+      <div class="sec-hd">
+        <div class="sec-hd-left">
+          <h1 class="sec-title">Products</h1>
+          <span class="sec-count" id="product-count">0</span>
+        </div>
+        <button class="btn btn-primary" id="add-btn">+ Add Product</button>
+      </div>
+
+      <div id="product-list">
+        <p class="state-msg">Loading…</p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===================== FORM MODAL ===================== -->
+  <div id="form-modal" hidden role="dialog" aria-modal="true" aria-labelledby="form-title">
+    <div class="modal-box">
+
+      <div class="modal-hd">
+        <h2 class="modal-title" id="form-title">Add Product</h2>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+
+      <div id="form-error"   class="alert alert-error"   hidden></div>
+      <div id="form-success" class="alert alert-success" hidden></div>
+
+      <form id="product-form" novalidate>
+
+        <div class="field">
+          <label for="f-name">Name <span style="color:var(--red)">*</span></label>
+          <input type="text" id="f-name" name="name" required placeholder="e.g. Ultra Clean Detergent">
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="f-price">Price ($)</label>
+            <input type="number" id="f-price" name="price" min="0" step="0.01" placeholder="0.00">
+          </div>
+          <div class="field">
+            <label for="f-category">Category</label>
+            <select id="f-category" name="category">
+              <option value="detergents">Detergents</option>
+              <option value="softeners">Softeners</option>
+              <option value="cleaners">Cleaners</option>
+              <option value="addons">Add-ons</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="f-size">Size Label</label>
+            <input type="text" id="f-size" name="size_label" placeholder="e.g. 5-gallon bucket">
+          </div>
+          <div class="field">
+            <label for="f-sort">Sort Order</label>
+            <input type="number" id="f-sort" name="sort_order" min="0" step="1" placeholder="0">
+          </div>
+        </div>
+
+        <div class="toggle-row">
+          <input type="checkbox" id="f-available" name="available">
+          <label for="f-available">Available for purchase</label>
+        </div>
+
+        <div class="toggle-row">
+          <input type="checkbox" id="f-featured" name="featured">
+          <label for="f-featured">Featured product</label>
+        </div>
+
+        <!-- Image upload -->
+        <div class="img-upload">
+          <label>Product Image</label>
+          <label for="image-input" class="file-trigger">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Choose image from computer
+          </label>
+          <input type="file" id="image-input" accept="image/*">
+          <img id="image-preview" alt="Preview" hidden>
+        </div>
+
+        <div class="modal-ft">
+          <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="save-btn">Save Product</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts: SDK → config → panel logic -->
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>
