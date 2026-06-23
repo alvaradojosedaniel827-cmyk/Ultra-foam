@@ -10,9 +10,8 @@
   /* -----------------------------------------------------------
      CONFIG
      ----------------------------------------------------------- */
-  // CHANGE: WhatsApp number — international format, digits only, no "+".
-  // Example for a US number: "13475551234"
-  var WHATSAPP_NUMBER = '1XXXXXXXXXX';
+  // WhatsApp number — international format, digits only, no "+".
+  var WHATSAPP_NUMBER = '13472562800';
 
   // CHANGE: default pre-filled WhatsApp message
   var WHATSAPP_MESSAGE =
@@ -213,32 +212,36 @@
 
   /* -----------------------------------------------------------
      CATALOG FILTER — sidebar / chip row
+     Cards are re-queried on every filter call so dynamically
+     loaded products from Supabase are always included.
      ----------------------------------------------------------- */
   function initCatalogFilter() {
     var filterBtns = document.querySelectorAll('.cat-btn[data-filter]');
-    var cards = document.querySelectorAll('.product-card[data-category]');
-    var sections = document.querySelectorAll('.catalog-products .product-category');
 
     if (!filterBtns.length) return;
 
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var currentFilter = 'all';
 
     function setFilter(filter) {
-      // Update button states
+      currentFilter = filter;
+
+      // Live query — works with hardcoded AND dynamically rendered cards.
+      var cards    = document.querySelectorAll('.product-card[data-category]');
+      var sections = document.querySelectorAll('.catalog-products .product-category');
+
       filterBtns.forEach(function (btn) {
         var active = btn.getAttribute('data-filter') === filter;
         btn.classList.toggle('is-active', active);
         btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
 
-      // Show / hide cards with optional fade
       cards.forEach(function (card) {
         var match = filter === 'all' || card.getAttribute('data-category') === filter;
         if (match) {
           card.style.display = '';
           if (!reducedMotion) {
             card.classList.remove('is-filtering');
-            // Force reflow so animation re-triggers
             void card.offsetWidth;
             card.classList.add('is-filtering');
           }
@@ -248,7 +251,6 @@
         }
       });
 
-      // Hide category sections whose cards are all hidden (keeps headings clean)
       sections.forEach(function (section) {
         var sectionCards = section.querySelectorAll('.product-card[data-category]');
         var hasVisible = false;
@@ -265,8 +267,10 @@
       });
     });
 
-    // Default: all products visible
     setFilter('all');
+
+    // Expose so products.js can re-apply the active filter after dynamic render.
+    window._UF_applyFilter = function () { setFilter(currentFilter); };
   }
 
   /* -----------------------------------------------------------
@@ -353,6 +357,14 @@
     initCatalogFilter();
     initScrollProgress();
     initReveal();
+
+    // Hook called by js/products.js after Supabase cards are injected.
+    // Re-wires WhatsApp hrefs on new <a data-whatsapp> elements and
+    // re-applies the currently active category filter.
+    window._UF_reinit = function () {
+      initWhatsApp();
+      if (typeof window._UF_applyFilter === 'function') window._UF_applyFilter();
+    };
   }
 
   if (document.readyState === 'loading') {

@@ -1610,6 +1610,104 @@ body.no-scroll {
 }
 
 /* =============================================================
+   DYNAMIC PRODUCTS — skeleton loader, badges, OOS, error
+   ============================================================= */
+
+/* Skeleton grid matches product-grid columns */
+.product-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-5);
+}
+
+.product-skeleton {
+  border-radius: var(--radius-md);
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(
+    90deg,
+    var(--bg-soft) 25%,
+    #dce8f3 50%,
+    var(--bg-soft) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Badges overlaid on .product-media (which is position: relative) */
+.product-badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  z-index: 2;
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.product-badge + .product-badge {
+  top: calc(var(--space-3) + 1.5rem);
+}
+
+.product-badge--featured {
+  background: var(--gradient-primary);
+  color: #fff;
+}
+
+.product-badge--oos {
+  background: rgba(11, 30, 51, 0.72);
+  color: #fff;
+}
+
+/* Out-of-stock card: subtle dim + disable hover lift */
+.product-card.is-oos {
+  opacity: 0.72;
+}
+
+.product-card.is-oos:hover {
+  transform: none;
+  border-color: var(--border);
+  box-shadow: var(--shadow-card);
+}
+
+/* Disabled Order button */
+.product-order:disabled,
+.product-order[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Error state inside .catalog-products */
+.catalog-error {
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.catalog-error p {
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-3);
+}
+
+.catalog-error a {
+  font-weight: var(--fw-semibold);
+  color: var(--accent-deep);
+  text-decoration: underline;
+}
+
+/* =============================================================
    ERROR (404) + THANK-YOU pages
    ============================================================= */
 .page-center {
